@@ -50,19 +50,42 @@ def wigner_3j(l1, l2, l3, m1, m2, m3):
 def C(l1, l2, l3, m1, m2, m3):
     return (-1)*(l1+l2+l3)*wigner_3j(l1, l2, l3, m1, m2, m3)
 
-def A_func(l, m, primary_vert, secondary_vert, bin, weight_lists, avg_cal = True, config_space_avg = False):
+def A(l, m, primary_vert, secondary_vert, bin, weight_lists, avg_cal=True, config_space_avg=False):
+    # Get the number of vertices
     num_vert = secondary_vert.shape[0]
+    # Initialize sum variable
     sum = 0
-    b_min = bin[0]
-    b_max = bin[1]
-    rel_pos = secondary_vert - primary_vert
-    rel_pos_sphe = cart_to_sphe(rel_pos)
-
-    if (avg_cal == True) and (config_space_avg == False):
+    # Calculate relative positions in spherical coordinates
+    rel_pos_sphe = cart_to_sphe(secondary_vert - primary_vert)
+    # Check conditions for calculation
+    if avg_cal and not config_space_avg:
+        # Iterate over vertices
         for i in range(num_vert):
-            if rel_pos_sphe[i][0] < b_max and rel_pos_sphe[i][0] > b_min:
-                sum += rel_pos_sphe[i][0] * spe.sph_harm(m, l, rel_pos_sphe[i][2], rel_pos_sphe[i][1])
-        return sum / shell_vol(b_min, b_max)
+            # Check if the radius is within the specified bin range
+            if bin[0] < rel_pos_sphe[i][0] < bin[1]:
+                # Accumulate the weighted sum using spherical harmonic function
+                sum += weight_lists[i] * spe.sph_harm(m, l, rel_pos_sphe[i][2], rel_pos_sphe[i][1])
+        # Calculate and return the average
+        return sum / shell_vol(bin[0], bin[1])
+
+def estimator(l1, l2, l3, Data_catalog, Data_catalog_weight_lists, bin_lists, Random_catalog, Random_catalog_weight_lists, DmR_status, space_volume, cache_flag=0, avg_cal=True, config_space_avg=False):
+    sum = 0
+    # DDDD
+    if DmR_status == 0:
+        num_data = Data_catalog.shape[0]
+        num_weights = Data_catalog_weight_lists.shape[0]
+        assert num_data == num_weights
+
+    for i in range(num_data):
+        primary = Data_catalog[i]
+        secondary = np.delete(Data_catalog, i, axis=0)
+        weight_lists_primary = Data_catalog_weight_lists[i]
+        weight_lists_secondary = np.delete(Data_catalog_weight_lists, i, axis=0)
+
+        for m1, m2, m3 in zip(range(-l1, l1+1), range(-l2, l2+1), range(-l3, l3+1)):
+            sum += weight_lists_primary * C(l1, l2, l3, m1, m2, m3) * A(l1, m1, primary, secondary, bin_lists[0], weight_lists_secondary, avg_cal, config_space_avg) \
+                   * A(l2, m2, primary, secondary, bin_lists[0], weight_lists_secondary, avg_cal, config_space_avg) \
+                   * A(l3, m3, primary, secondary, bin_lists[0], weight_lists_secondary, avg_cal, config_space_avg)
 
 # End of the program
 end = datetime.now()
