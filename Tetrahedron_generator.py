@@ -66,13 +66,6 @@ def create_multiple_tetrahedra(vertices, parity, r, deviation_range):
 
     return np.array(multiple_tetrahedra)
 
-space = np.array([[0, 1000], [0, 1000], [0, 1000]])
-vertices = generate_3d_random(1500, space, 60)
-parity = 1
-r = [100, 100, 100]
-deviation_range = generate_random_deviations([1, 1, 1], [2, 2, 2])
-tetrahedra = create_multiple_tetrahedra(vertices, parity, r, deviation_range)
-
 def plot_tetrahedra(tetrahedra):
     global parity
     fig = plt.figure()
@@ -101,4 +94,11 @@ def plot_tetrahedra(tetrahedra):
     plt.savefig(f"Program/Figure/tetrahedra_{parity}.png")
     plt.show()
 
-plot_tetrahedra(tetrahedra)
+space = np.array([[0, 1000], [0, 1000], [0, 1000]])
+vertices = generate_3d_random(1500, space, 60)
+parity = 1
+r = [100, 100, 100]
+deviation_range = generate_random_deviations([1, 1, 1], [2, 2, 2])
+tetrahedra = create_multiple_tetrahedra(vertices, parity, r, deviation_range)
+
+# plot_tetrahedra(tetrahedra)
