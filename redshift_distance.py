@@ -1,5 +1,6 @@
 import numpy as np
 
+# Constants
 H0 = 67.6
 Omega_m = 0.31
 Omega_Lambda = 0.0
@@ -17,6 +18,7 @@ def redshift_to_dist(z, type="DCMR", h=H0/100.0, Omega_m=Omega_m, n=1000):
         age = 0
         n = 1000
         
+        # Integral
         for i in range(n):
             a = az * (i + 0.5) / n
             adot = np.sqrt(Omega_k + (Omega_m / a) + (Omega_r / (a**2)) + (Omega_Lambda*a**2))
@@ -27,6 +29,7 @@ def redshift_to_dist(z, type="DCMR", h=H0/100.0, Omega_m=Omega_m, n=1000):
         DTT = 0.0
         DCMR = 0.0
 
+        # Integral
         for i in range(n):
             a = az + (1 - az) * (i + 0.5) / n
             adot = np.sqrt(Omega_k + (Omega_m / a) + (Omega_r / (a**2)) + (Omega_Lambda*a**2))
