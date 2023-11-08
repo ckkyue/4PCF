@@ -44,6 +44,3 @@ def generate_3d_random(num, space, min_sep):
             num -= 1
 
     return points
-
-space = np.array([[0, 1000]])
-print(generate_1d_random(1500, space, 60/(1000*np.sqrt(3))))
