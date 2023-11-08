@@ -46,21 +46,19 @@ def create_single_tetrahedron(position, parity, r, deviation):
     return np.vstack((primary, secondary1, secondary2, secondary3))
 
 
-def generate_random_deviations(r_min, r_max):
-    # r_min: 3D array
-    # r_max: 3D array
-    return np.array([random.uniform(-np.pi, np.pi) for i in range(3)] +
-                    [random.uniform(r_min[i], r_max[i]) for i in range(3)])
+def generate_random_deviations(deviation_range):
+    deviation = np.array([random.uniform(-np.pi, np.pi) for i in range(3)] +
+                         [random.uniform(deviation_range[i][0], deviation_range[i][1]) for i in range(3)])
+    return deviation
 
 
 def create_multiple_tetrahedra(vertices, parity, r, deviation_range):
     num_vert = vertices.shape[0]
-    deviation_min, deviation_max = deviation_range[:3], deviation_range[3:]
 
     multiple_tetrahedra = []
 
     for i in range(num_vert):
-        deviation = generate_random_deviations(deviation_min, deviation_max)
+        deviation = generate_random_deviations(deviation_range)
         single_tetrahedron = create_single_tetrahedron(vertices[i], parity, r, deviation)
         multiple_tetrahedra.append(single_tetrahedron)
 
@@ -97,8 +95,8 @@ def plot_tetrahedra(tetrahedra):
 space = np.array([[0, 1000], [0, 1000], [0, 1000]])
 vertices = generate_3d_random(1500, space, 60)
 parity = 1
-r = [100, 100, 100]
-deviation_range = generate_random_deviations([1, 1, 1], [2, 2, 2])
+r = [10, 20, 30]
+deviation_range = np.array([[0, 1], [-2, 2], [-1, 0]])
 tetrahedra = create_multiple_tetrahedra(vertices, parity, r, deviation_range)
 
-# plot_tetrahedra(tetrahedra)
+plot_tetrahedra(tetrahedra)
