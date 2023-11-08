@@ -3,6 +3,7 @@ import random
 
 def min_sep_test(point, points, min_sep):
     result = True
+    
     for i in range(len(points)):
         if np.linalg.norm(point - points[i]) < min_sep:
             result = False
@@ -16,12 +17,10 @@ def generate_1d_random(num, space, min_sep):
 
     while num > 0:
         x = random.uniform(x_min, x_max)
-
         point = np.array([x])
         if min_sep_test(point, points, min_sep):
             points = np.append(points, point.reshape((1, 1)), axis=0)
             num -= 1
-    
     return points
 
 def generate_3d_random(num, space, min_sep):
@@ -37,10 +36,8 @@ def generate_3d_random(num, space, min_sep):
         x = random.uniform(x_min, x_max)
         y = random.uniform(y_min, y_max)
         z = random.uniform(z_min, z_max)
-
         point = np.array([x, y, z])
         if min_sep_test(point, points, min_sep):
             points = np.append(points, point.reshape((1, 3)), axis=0)
             num -= 1
-
     return points

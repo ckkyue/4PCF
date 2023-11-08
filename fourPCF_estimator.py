@@ -4,9 +4,6 @@ import scipy.special as spe
 import math
 from datetime import datetime
 
-# Start of the program
-start = datetime.now()
-
 # Longitude of a point within [0, 2*pi) given two 1D arrays
 def longitude(x, y):
     output = np.empty(len(x))
@@ -73,8 +70,8 @@ def a(l, m, primary_vert, secondary_vert, bins, weights, avg_cal=True, config_sp
             if bins[0] < rel_pos_sphe[i][0] < bins[1]:
                 sum += weights[i] * spe.sph_harm(m, l, rel_pos_sphe[i][2], rel_pos_sphe[i][1])
         return sum
-
-def estimator(l1, l2, l3, Data_catalog, Data_catalog_weights, bins, Random_catalog, Random_catalog_weights, DmR_status, space_volume, cache_flag=0, avg_cal=True, config_space_avg=False):
+    
+def estimator(l1, l2, l3, Data_catalog, Data_catalog_weights, bins, Random_catalog, Random_catalog_weights, DmR_status, space_vol, cache_flag=0, avg_cal=True, config_space_avg=False):
     sum = 0
 
     # DDDD
@@ -364,8 +361,4 @@ def estimator(l1, l2, l3, Data_catalog, Data_catalog_weights, bins, Random_catal
                 * a(l1, m1, primary, secondary, bins[0], weights_secondary) \
                 * a(l2, m2, primary, secondary, bins[1], weights_secondary) \
                 * a(l3, m3, primary, secondary, bins[2], weights_secondary)
-    return sum/space_volume
-
-# End of the program
-end = datetime.now()
-print(end-start)
+    return sum/space_vol

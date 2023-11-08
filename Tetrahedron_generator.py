@@ -42,7 +42,6 @@ def create_single_tetrahedron(position, parity, r, deviation):
     secondary1 = primary + transform @ np.array([r_initial[0], 0, 0])
     secondary2 = primary + transform @ np.array([0, r_initial[1], 0])
     secondary3 = primary + transform @ np.array([0, 0, r_initial[2]])
-
     return np.vstack((primary, secondary1, secondary2, secondary3))
 
 
@@ -61,7 +60,6 @@ def create_multiple_tetrahedra(vertices, parity, r, deviation_range):
         deviation = generate_random_deviations(deviation_range)
         single_tetrahedron = create_single_tetrahedron(vertices[i], parity, r, deviation)
         multiple_tetrahedra.append(single_tetrahedron)
-
     return np.array(multiple_tetrahedra)
 
 def plot_tetrahedra(tetrahedra):
