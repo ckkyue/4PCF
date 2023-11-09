@@ -91,20 +91,20 @@ def plot_tetrahedra(tetrahedra):
     plt.savefig(f"Program/Figure/tetrahedra_{parity}.png")
     plt.show()
 
-space = np.array([[0, 100], [0, 100], [0, 100]])
-vertices = generate_3d_random(150, space, 10)
+space = np.array([[0, 1000], [0, 1000], [0, 1000]])
+vertices = generate_3d_random(1500, space, 60)
 parity = 1
 r = [10, 20, 30]
 deviation_range = np.array([[0, 1], [-2, 2], [-1, 0]])
 tetrahedra = create_multiple_tetrahedra(vertices, parity, r, deviation_range)
 
-# plot_tetrahedra(tetrahedra)
+plot_tetrahedra(tetrahedra)
 
 Data_catalog_weights = np.array([1, 1, 1, 1])
 bins_edges = np.array([
-    np.linspace(0, 1500, 100+1), 
-    np.linspace(0, 1500, 100+1), 
-    np.linspace(0, 1500, 100+1)
+    np.linspace(0, 1500, 20), 
+    np.linspace(0, 1500, 20), 
+    np.linspace(0, 1500, 20)
     ])
 Random_catalog = None
 Random_catalog_weights = None
