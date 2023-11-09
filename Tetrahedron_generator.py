@@ -102,9 +102,9 @@ plot_tetrahedra(tetrahedra)
 
 Data_catalog_weights = np.array([1, 1, 1, 1])
 bins_edges = np.array([
-    np.linspace(0, 1500, 20), 
-    np.linspace(0, 1500, 20), 
-    np.linspace(0, 1500, 20)
+    np.linspace(0, 1500, 120), 
+    np.linspace(0, 1500, 120), 
+    np.linspace(0, 1500, 120)
     ])
 Random_catalog = None
 Random_catalog_weights = None
