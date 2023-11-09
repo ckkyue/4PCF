@@ -4,6 +4,7 @@ from random_number_generator import generate_1d_random, generate_3d_random
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import os
+import fourPCF_estimator as fe
 
 folders = ["Program/Figure"]
 for folder in folders:
