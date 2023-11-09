@@ -102,9 +102,9 @@ plot_tetrahedra(tetrahedra)
 
 Data_catalog_weights = np.array([1, 1, 1, 1])
 bins_edges = np.array([
-    np.linspace(0, 1500, 120), 
-    np.linspace(0, 1500, 120), 
-    np.linspace(0, 1500, 120)
+    np.linspace(0, 1500, 10+1), 
+    np.linspace(0, 1500, 10+1), 
+    np.linspace(0, 1500, 10+1)
     ])
 Random_catalog = None
 Random_catalog_weights = None
@@ -138,7 +138,7 @@ def plot_zeta_tetrahedra(r, l1, l2, l3, tetrahedra, Data_catalog_weights, bins_e
     plt.xlabel("bin index")
     plt.ylabel(fr"$r_{1}r_{2}r_{3}\zeta_{{l1, l2, l3}}(r_{1}, r_{2}, r_{3})$")
     plt.title(fr"$l_1={l1}$, $l_2={l2}$, $l_3={l3}$")
-    plt.savefig("Program/Figure/zeta_tetrahedron_{parity}.png")
+    plt.savefig(f"Program/Figure/zeta_tetrahedron_{parity}.png")
     plt.show()
 
 plot_zeta_tetrahedra(r, 1, 1, 1, tetrahedra, Data_catalog_weights, bins_edges, Random_catalog, Random_catalog_weights, DmR_status, space_vol)
