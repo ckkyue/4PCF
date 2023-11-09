@@ -72,7 +72,7 @@ def estimator(l1, l2, l3, Data_catalog, Data_catalog_weights, bins_list, Random_
     # DDDD
     if DmR_status == 0:
         num_data = Data_catalog.shape[0]
-        num_weights = len(Data_catalog_weights)
+        num_weights = Data_catalog_weights.shape[0]
         assert num_data == num_weights
 
         for i in range(num_data):

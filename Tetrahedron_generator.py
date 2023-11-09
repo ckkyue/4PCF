@@ -2,6 +2,7 @@ import numpy as np
 import random
 from random_number_generator import generate_1d_random, generate_3d_random
 import matplotlib.pyplot as plt
+plt.ion()
 from mpl_toolkits.mplot3d import Axes3D
 import os
 import fourPCF_estimator as fe
@@ -92,10 +93,20 @@ def plot_tetrahedra(tetrahedra):
     plt.show()
 
 space = np.array([[0, 1000], [0, 1000], [0, 1000]])
-vertices = generate_3d_random(1500, space, 60)
+vertices = generate_3d_random(10, space, 60)
 parity = 1
 r = [10, 20, 30]
 deviation_range = np.array([[0, 1], [-2, 2], [-1, 0]])
 tetrahedra = create_multiple_tetrahedra(vertices, parity, r, deviation_range)
 
 plot_tetrahedra(tetrahedra)
+
+Data_catalog = tetrahedra[0]
+Data_catalog_weights = np.array([1, 1, 1, 1])
+bins_list = np.array([[0, 150], [0, 150], [0, 150]])
+Randon_catalog = None
+Random_catalog_weights = None
+DmR_status = 0
+space_vol = 1000**3
+
+print(fe.estimator(1, 1, 1, Data_catalog, Data_catalog_weights, bins_list, Randon_catalog, Random_catalog_weights, DmR_status, space_vol))
