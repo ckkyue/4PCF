@@ -23,7 +23,7 @@ def wigner_9j_prod(l_modes):
         l1, l2, l3 = l_modes[i][0], l_modes[i][1], l_modes[i][2]
         L1, L2, L3 = l_modes[j][0], l_modes[j][1], l_modes[j][2]
         lp1, lp2, lp3 = l_modes[k][0], l_modes[k][1], l_modes[k][2]
-        prod[i, j, k] = (-1)**(lp1 + lp2 + lp3)/(4*np.pi)**(3/2)*D(l1, L1, lp1)*D(l2, L2, lp2)*D(l3, L3, lp3)  \
+        prod[i][j][k] = (-1)**(lp1 + lp2 + lp3)/(4*np.pi)**(3/2)*D(l1, L1, lp1)*D(l2, L2, lp2)*D(l3, L3, lp3)  \
             *np.float64(wigner_3j(l1, L1, lp1, 0, 0, 0)) \
             *np.float64(wigner_3j(l2, L2, lp2, 0, 0, 0)) \
             *np.float64(wigner_3j(l3, L3, lp3, 0, 0, 0)) \
