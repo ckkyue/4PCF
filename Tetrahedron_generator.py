@@ -5,8 +5,9 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import os
 import fourPCF_estimator as fe
+from tqdm import tqdm
 
-folders = ["Program/Figure"]
+folders = ["Figure"]
 for folder in folders:
     if not os.path.exists(folder):
         os.makedirs(folder)
@@ -88,57 +89,46 @@ def plot_tetrahedra(tetrahedra):
     ax.set_box_aspect([1, 1, 1])
 
     # Show the plot
-    plt.savefig(f"Program/Figure/tetrahedra_{parity}.png")
+    plt.savefig(f"Figure/tetrahedra{parity}.png")
     plt.show()
 
-space = np.array([[0, 1000], [0, 1000], [0, 1000]])
-vertices = generate_3d_random(1500, space, 60)
+# space = np.array([[0, 1000], [0, 1000], [0, 1000]])
+# vertices = generate_3d_random(150, space, 60)
 parity = 1
-r = [10, 20, 30]
-deviation_range = np.array([[0, 1], [-2, 2], [-1, 0]])
-tetrahedra = create_multiple_tetrahedra(vertices, parity, r, deviation_range)
+# r = [10, 20, 30]
+# deviation_range = np.array([[0, 1], [-2, 2], [-1, 0]])
+# tetrahedra = create_multiple_tetrahedra(vertices, parity, r, deviation_range)
+# np.save(f"tetrahedra{parity}.npy", tetrahedra)
+tetrahedra = np.load(f"tetrahedra{parity}.npy")
+# plot_tetrahedra(tetrahedra)
 
-plot_tetrahedra(tetrahedra)
+radial_bins = []
+for i in range(10):
+    r1 = np.linspace(0, 1000, 10 + 1)[i]
+    for j in range(i + 1, 10):
+        r2 = np.linspace(0, 1000, 10 + 1)[j]
+        if r2 - r1 >= 100:
+            for k in range(j + 1, 10):
+                r3 = np.linspace(0, 1000, 10 + 1)[k]
+                if r3 - r2 >= 100:
+                    radial_bins.append([r1, r2, r3])
 
-Data_catalog_weights = np.array([1, 1, 1, 1])
-bins_edges = np.array([
-    np.linspace(0, 1500, 10+1), 
-    np.linspace(0, 1500, 10+1), 
-    np.linspace(0, 1500, 10+1)
-    ])
-Random_catalog = None
-Random_catalog_weights = None
-DmR_status = 0
-space_vol = 1000**3
-
-def zeta_tetrahedra(r, l1, l2, l3, tetrahedra, Data_catalog_weights, bins_edges, Random_catalog, Random_catalog_weights, DmR_status, space_vol):
-    r1, r2, r3 = r[0], r[1], r[2]
-    output = []
-    for tetrahedron in tetrahedra:
-        zeta_list = []
-        Data_catalog = tetrahedron
-        for i in range(bins_edges.shape[1]-1):
-            bins_list = np.array([
-                np.array([bins_edges[0][i], bins_edges[0][i+1]]), 
-                np.array([bins_edges[1][i], bins_edges[1][i+1]]), 
-                np.array([bins_edges[2][i], bins_edges[2][i+1]])
-                ])
-            zeta = fe.estimator(l1, l2, l3, Data_catalog, Data_catalog_weights, bins_list, \
-                                Random_catalog, Random_catalog_weights, DmR_status, space_vol)
-            zeta_list.append(zeta)
-        output.append(zeta_list)
-    output = r1*r2*r3*np.array(output)
-    return output
-
-def plot_zeta_tetrahedra(r, l1, l2, l3, tetrahedra, Data_catalog_weights, bins_edges, Random_catalog, Random_catalog_weights, DmR_status, space_vol):
+def zeta_tetrahedra(l1, l2, l3, tetrahedra, radial_bins):
     global parity
-    output = zeta_tetrahedra(r, l1, l2, l3, tetrahedra, Data_catalog_weights, bins_edges, Random_catalog, Random_catalog_weights, DmR_status, space_vol)
-    for i in range(output.shape[0]):
-        plt.plot(np.arange(len(output[i])), output[i])
-    plt.xlabel("bin index")
-    plt.ylabel(fr"$r_{1}r_{2}r_{3}\zeta_{{l1, l2, l3}}(r_{1}, r_{2}, r_{3})$")
-    plt.title(fr"$l_1={l1}$, $l_2={l2}$, $l_3={l3}$")
-    plt.savefig(f"Program/Figure/zeta_tetrahedron_{parity}.png")
-    plt.show()
+    vertices = tetrahedra.reshape(-1, 3)
+    zeta = []
+    for bins in tqdm(radial_bins, desc="Processing bins"):
+        bins_min = np.array(bins)
+        bins_max = bins_min + int(1000 / 10)
+        zeta_bin = np.imag(fe.estimator(l1, l2, l3, vertices, bins_min, bins_max, 1))
+        zeta.append(zeta_bin)
+    return zeta
 
-plot_zeta_tetrahedra(r, 1, 1, 1, tetrahedra, Data_catalog_weights, bins_edges, Random_catalog, Random_catalog_weights, DmR_status, space_vol)
+zeta = zeta_tetrahedra(1, 1, 1, tetrahedra, radial_bins)
+r_values = [r1 * r2 * r3 * z for (r1, r2, r3), z in zip(radial_bins, zeta)]
+plt.plot(np.arange(len(radial_bins)), r_values)
+plt.xlabel("Bin Index")
+plt.ylabel(fr"$r_{1}r_{2}r_{3}\zeta(r_{1}r_{2}r_{3})$")
+plt.title(r"$l_{1}=1$, $l_{2}=1$, $l_{3}=1$")
+plt.savefig(f"Figure/zeta_tetrahedra{parity}.png")
+plt.show()
