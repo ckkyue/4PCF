@@ -93,42 +93,39 @@ def plot_tetrahedra(tetrahedra):
     plt.show()
 
 # space = np.array([[0, 1000], [0, 1000], [0, 1000]])
-# vertices = generate_3d_random(150, space, 60)
-parity = 1
+# vertices = generate_3d_random(1500, space, 60)
+# parity = 1 # 1 or -1
 # r = [10, 20, 30]
 # deviation_range = np.array([[0, 1], [-2, 2], [-1, 0]])
 # tetrahedra = create_multiple_tetrahedra(vertices, parity, r, deviation_range)
 # np.save(f"tetrahedra{parity}.npy", tetrahedra)
-tetrahedra = np.load(f"tetrahedra{parity}.npy")
 # plot_tetrahedra(tetrahedra)
 
-radial_bins = []
-for i in range(10):
-    r1 = np.linspace(0, 1000, 10 + 1)[i]
-    for j in range(i + 1, 10):
-        r2 = np.linspace(0, 1000, 10 + 1)[j]
-        if r2 - r1 >= 100:
-            for k in range(j + 1, 10):
-                r3 = np.linspace(0, 1000, 10 + 1)[k]
-                if r3 - r2 >= 100:
-                    radial_bins.append([r1, r2, r3])
-
-def zeta_tetrahedra(l1, l2, l3, tetrahedra, radial_bins):
+def zeta_tetrahedra(l1, l2, l3, tetrahedra, bins_min, bins_max):
     global parity
-    vertices = tetrahedra.reshape(-1, 3)
+    weights = 1 / len(tetrahedra)
     zeta = []
-    for bins in tqdm(radial_bins, desc="Processing bins"):
-        bins_min = np.array(bins)
-        bins_max = bins_min + int(1000 / 10)
-        zeta_bin = np.imag(fe.estimator(l1, l2, l3, vertices, bins_min, bins_max, 1))
-        zeta.append(zeta_bin)
+    for tetrahedron in tqdm(tetrahedra):
+        vertices = tetrahedron
+        zeta_tetrahedron = np.imag(fe.estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
+        zeta.append(zeta_tetrahedron)
     return zeta
 
-zeta = zeta_tetrahedra(1, 1, 1, tetrahedra, radial_bins)
-r_values = [r1 * r2 * r3 * z for (r1, r2, r3), z in zip(radial_bins, zeta)]
-plt.plot(np.arange(len(radial_bins)), r_values)
-plt.xlabel("Bin Index")
-plt.ylabel(fr"$r_{1}r_{2}r_{3}\zeta(r_{1}r_{2}r_{3})$")
+tetrahedra_ccw = np.load("tetrahedra1.npy")
+tetrahedra_cw = np.load("tetrahedra-1.npy")
+# zeta_ccw = zeta_tetrahedra(1, 1, 1, tetrahedra_ccw, [5, 15, 25], [15, 25, 35])
+# np.save("zeta_tetrahedra1.npy", zeta_ccw)
+# zeta_cw = zeta_tetrahedra(1, 1, 1, tetrahedra_cw, [5, 15, 25], [15, 25, 35])
+# np.save("zeta_tetrahedra-1.npy", zeta_cw)
+zeta_ccw = np.load("zeta_tetrahedra1.npy")
+zeta_cw = np.load("zeta_tetrahedra-1.npy")
+plt.plot(np.arange(len(zeta_ccw)), zeta_ccw, color="blue", label=r"$r_{1}\in[5, 15]$, $r_{2}\in[15, 25]$, $r_{3}\in[25, 35]$ (ccw)")
+plt.plot(np.arange(len(zeta_cw)), zeta_cw, color="orange", label=r"$r_{1}\in[5, 15]$, $r_{2}\in[15, 25]$, $r_{3}\in[25, 35]$ (cw)")
+plt.axhline(np.mean(zeta_ccw), linestyle="--", color="black", alpha=0.5)
+plt.axhline(np.mean(zeta_cw), linestyle="--", color="black", alpha=0.5)
+plt.xlabel("Tetrahedron Index")
+plt.ylabel(r"$\zeta(r_{1}, r_{2}, r_{3})$")
 plt.title(r"$l_{1}=1$, $l_{2}=1$, $l_{3}=1$")
-plt.savefig(f"Figure/zeta_tetrahedra{parity}.png")
+plt.legend()
+plt.savefig(f"Figure/zeta_tetrahedra_mixed.png")
 plt.show()
