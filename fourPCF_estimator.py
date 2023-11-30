@@ -105,28 +105,28 @@ l2 = 2
 l3 = 2
 zeta = []
 
-if choice == 1:
-    for bins in tqdm(radial_bins, desc="Processing bins"):
-        bins_min = np.array(bins)
-        bins_max = bins_min + 14
-        zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
-        zeta.append(zeta_bin)
-    np.save(f"zeta{l1}{l2}{l3}_test_sample1.npy", zeta)
-elif choice == 2:
-    for bins in tqdm(radial_bins, desc="Processing bins"):
-        bins_min = np.array(bins)
-        bins_max = bins_min + 8
-        zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
-        zeta.append(zeta_bin)
-    np.save(f"zeta{l1}{l2}{l3}_test_sample2.npy", zeta)
-print(zeta)
+# if choice == 1:
+#     for bins in tqdm(radial_bins, desc="Processing bins"):
+#         bins_min = np.array(bins)
+#         bins_max = bins_min + 14
+#         zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
+#         zeta.append(zeta_bin)
+#     np.save(f"zeta{l1}{l2}{l3}_test_sample1.npy", zeta)
+# elif choice == 2:
+#     for bins in tqdm(radial_bins, desc="Processing bins"):
+#         bins_min = np.array(bins)
+#         bins_max = bins_min + 8
+#         zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
+#         zeta.append(zeta_bin)
+#     np.save(f"zeta{l1}{l2}{l3}_test_sample2.npy", zeta)
+# print(zeta)
 
-# zeta = np.load("zeta122_test_sample1.npy")
-# plt.plot(np.arange(len(zeta)), zeta, color="blue", label=r"$r_{i}\in[20, 160]$, $\Delta r = 10$")
-# plt.xlabel("Bin Index")
-# plt.ylabel(r"$\zeta_{l_{1}, l_{2}, l_{3}}(r_{1}, r_{2}, r_{3})$")
-# plt.axhline(np.mean(zeta), linestyle="--", color="black", alpha=0.5)
-# plt.title(r"$l_{1}=1$, $l_{2}=2$, $l_{3}=2$")
-# plt.legend(loc="best")
-# plt.savefig("Figure/zeta122_test_sample1.png")
-# plt.show()
+zeta = np.load("zeta122_test_sample1.npy")
+plt.plot(np.arange(len(zeta)), zeta, color="blue", label=r"$r_{i}\in[20, 160]$, $\Delta r = 10$")
+plt.xlabel("Bin Index")
+plt.ylabel(r"$\zeta_{l_{1}, l_{2}, l_{3}}(r_{1}, r_{2}, r_{3})$")
+plt.axhline(np.mean(zeta), linestyle="--", color="black", alpha=0.5)
+plt.title(r"$l_{1}=1$, $l_{2}=2$, $l_{3}=2$")
+plt.legend(loc="best")
+plt.savefig("Figure/zeta122_test_sample1.png")
+plt.show()
