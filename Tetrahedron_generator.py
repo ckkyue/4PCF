@@ -103,7 +103,7 @@ def plot_tetrahedra(tetrahedra):
 
 def zeta_tetrahedra(l1, l2, l3, tetrahedra, bins_min, bins_max):
     global parity
-    weights = 1 / len(tetrahedra)
+    weights = [1 / len(tetrahedra)]*len(tetrahedra)
     zeta = []
     for tetrahedron in tqdm(tetrahedra):
         vertices = tetrahedron
@@ -113,19 +113,37 @@ def zeta_tetrahedra(l1, l2, l3, tetrahedra, bins_min, bins_max):
 
 tetrahedra_ccw = np.load("tetrahedra1.npy")
 tetrahedra_cw = np.load("tetrahedra-1.npy")
-# zeta_ccw = zeta_tetrahedra(1, 1, 1, tetrahedra_ccw, [5, 15, 25], [15, 25, 35])
-# np.save("zeta_tetrahedra1.npy", zeta_ccw)
-# zeta_cw = zeta_tetrahedra(1, 1, 1, tetrahedra_cw, [5, 15, 25], [15, 25, 35])
-# np.save("zeta_tetrahedra-1.npy", zeta_cw)
-zeta_ccw = np.load("zeta_tetrahedra1.npy")
-zeta_cw = np.load("zeta_tetrahedra-1.npy")
-plt.plot(np.arange(len(zeta_ccw)), zeta_ccw, color="blue", label=r"$r_{1}\in[5, 15]$, $r_{2}\in[15, 25]$, $r_{3}\in[25, 35]$ (ccw)")
-plt.plot(np.arange(len(zeta_cw)), zeta_cw, color="orange", label=r"$r_{1}\in[5, 15]$, $r_{2}\in[15, 25]$, $r_{3}\in[25, 35]$ (cw)")
-plt.axhline(np.mean(zeta_ccw), linestyle="--", color="black", alpha=0.5)
-plt.axhline(np.mean(zeta_cw), linestyle="--", color="black", alpha=0.5)
+
+# zeta111_ccw = zeta_tetrahedra(1, 1, 1, tetrahedra_ccw, [5, 15, 25], [15, 25, 35])
+# np.save("zeta111_tetrahedra1.npy", zeta111_ccw)
+# zeta111_cw = zeta_tetrahedra(1, 1, 1, tetrahedra_cw, [5, 15, 25], [15, 25, 35])
+# np.save("zeta111_tetrahedra-1.npy", zeta111_cw)
+zeta111_ccw = np.load("zeta111_tetrahedra1.npy")
+zeta111_cw = np.load("zeta111_tetrahedra-1.npy")
+plt.plot(np.arange(len(zeta111_ccw)), zeta111_ccw, color="blue", label=r"$r_{1}\in[5, 15]$, $r_{2}\in[15, 25]$, $r_{3}\in[25, 35]$ (ccw)")
+plt.plot(np.arange(len(zeta111_cw)), zeta111_cw, color="orange", label=r"$r_{1}\in[5, 15]$, $r_{2}\in[15, 25]$, $r_{3}\in[25, 35]$ (cw)")
+plt.axhline(np.mean(zeta111_ccw), linestyle="--", color="black", alpha=0.5)
+plt.axhline(np.mean(zeta111_cw), linestyle="--", color="black", alpha=0.5)
 plt.xlabel("Tetrahedron Index")
 plt.ylabel(r"$\zeta(r_{1}, r_{2}, r_{3})$")
 plt.title(r"$l_{1}=1$, $l_{2}=1$, $l_{3}=1$")
 plt.legend()
-plt.savefig(f"Figure/zeta_tetrahedra_mixed.png")
+plt.savefig(f"Figure/zeta111_tetrahedra_mixed.png")
+plt.show()
+
+# zeta122_ccw = zeta_tetrahedra(1, 2, 2, tetrahedra_ccw, [5, 15, 25], [15, 25, 35])
+# np.save("zeta122_tetrahedra1.npy", zeta122_ccw)
+# zeta122_cw = zeta_tetrahedra(1, 2, 2, tetrahedra_cw, [5, 15, 25], [15, 25, 35])
+# np.save("zeta122_tetrahedra-1.npy", zeta122_cw)
+zeta122_ccw = np.load("zeta122_tetrahedra1.npy")
+zeta122_cw = np.load("zeta122_tetrahedra-1.npy")
+plt.plot(np.arange(len(zeta122_ccw)), zeta122_ccw, color="blue", label=r"$r_{1}\in[5, 15]$, $r_{2}\in[15, 25]$, $r_{3}\in[25, 35]$ (ccw)")
+plt.plot(np.arange(len(zeta122_cw)), zeta122_cw, color="orange", label=r"$r_{1}\in[5, 15]$, $r_{2}\in[15, 25]$, $r_{3}\in[25, 35]$ (cw)")
+plt.axhline(np.mean(zeta122_ccw), linestyle="--", color="black", alpha=0.5)
+plt.axhline(np.mean(zeta122_cw), linestyle="--", color="black", alpha=0.5)
+plt.xlabel("Tetrahedron Index")
+plt.ylabel(r"$\zeta(r_{1}, r_{2}, r_{3})$")
+plt.title(r"$l_{1}=1$, $l_{2}=2$, $l_{3}=2$")
+plt.legend()
+plt.savefig(f"Figure/zeta122_tetrahedra_mixed.png")
 plt.show()
