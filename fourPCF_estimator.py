@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import matplotlib.pyplot as plt
 from read_data import read, get_weights, get_carts
 from sympy.physics.wigner import wigner_3j
 import scipy.special as spe
@@ -74,23 +75,54 @@ def estimator(l1, l2, l3, vertices, bins_min, bins_max, weights):
 vertices = np.load("vertices_sample.npy")
 weights = np.load("weights_sample.npy")
 
+choice = 2 # 1 or 2
 radial_bins = []
-for i in range(10):
-    r1 = np.linspace(20, 160, 10 + 1)[i]
-    for j in range(i + 1, 10):
-        r2 = np.linspace(20, 160, 10 + 1)[j]
-        if r2 - r1 > 14:
-            for k in range(j + 1, 10):
-                r3 = np.linspace(20, 160, 10 + 1)[k]
-                if r3 - r2 > 14:
-                    radial_bins.append([r1, r2, r3])
+
+if choice == 1:
+    for i in range(10):
+        r1 = np.linspace(20, 160, 10 + 1)[i]
+        for j in range(i + 1, 10):
+            r2 = np.linspace(20, 160, 10 + 1)[j]
+            if r2 - r1 > 14:
+                for k in range(j + 1, 10):
+                    r3 = np.linspace(20, 160, 10 + 1)[k]
+                    if r3 - r2 > 14:
+                        radial_bins.append([r1, r2, r3])
+elif choice == 2:
+    for i in range(18):
+        r1 = np.linspace(20, 164, 18 + 1)[i]
+        for j in range(i + 1, 18):
+            r2 = np.linspace(20, 164, 18 + 1)[j]
+            if r2 - r1 > 6:
+                for k in range(j + 1, 18):
+                    r3 = np.linspace(20, 164, 18 + 1)[k]
+                    if r3 - r2 > 6:
+                        radial_bins.append([r1, r2, r3])
 
 # Estimate 4PCF of test sample
-zeta = []
-for bins in tqdm(radial_bins, desc="Processing bins"):
-    bins_min = np.array(bins)
-    bins_max = bins_min + 14
-    zeta_bin = np.imag(estimator(1, 1, 1, vertices, bins_min, bins_max, weights))
-    zeta.append(zeta_bin)
-np.save("zeta_test_sample.npy", zeta)
-print(zeta)
+# zeta = []
+# if choice == 1:
+#     for bins in tqdm(radial_bins, desc="Processing bins"):
+#         bins_min = np.array(bins)
+#         bins_max = bins_min + 14
+#         zeta_bin = np.imag(estimator(1, 1, 1, vertices, bins_min, bins_max, weights))
+#         zeta.append(zeta_bin)
+#     np.save(f"zeta_test_sample1.npy", zeta)
+# elif choice == 2:
+#     for bins in tqdm(radial_bins, desc="Processing bins"):
+#         bins_min = np.array(bins)
+#         bins_max = bins_min + 8
+#         zeta_bin = np.imag(estimator(1, 1, 1, vertices, bins_min, bins_max, weights))
+#         zeta.append(zeta_bin)
+#     np.save(f"zeta_test_sample2.npy", zeta)
+# print(zeta)
+
+zeta = np.load("zeta_test_sample1.npy")
+plt.plot(np.arange(len(zeta)), zeta, color="blue", label=r"$r_{i}\in[20, 160]$, $\Delta r = 10$")
+plt.xlabel("Bin Index")
+plt.ylabel(r"$\zeta_{l_{1}, l_{2}, l_{3}}(r_{1}, r_{2}, r_{3})$")
+plt.axhline(np.mean(zeta), linestyle="--", color="black", alpha=0.5)
+plt.title(r"$l_{1}=1$, $l_{2}=1$, $l_{3}=1$")
+plt.legend(loc="best")
+plt.savefig("Figure/zeta_test_sample1.png")
+plt.show()
