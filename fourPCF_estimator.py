@@ -1,8 +1,9 @@
 import numpy as np
 import math
-from random_number_generator import generate_1d_random, generate_3d_random
+from read_data import read, get_weights, get_carts
 from sympy.physics.wigner import wigner_3j
 import scipy.special as spe
+from tqdm import tqdm
 
 # Longitude of a point within [0, 2*pi) given two 1D arrays
 def longitude(x, y):
@@ -61,3 +62,35 @@ def estimator(l1, l2, l3, vertices, bins_min, bins_max, weights):
                         * a(l2, m2, primary, secondary, bins_min[1], bins_max[1], weight) \
                         * a(l3, m3, primary, secondary, bins_min[2], bins_max[2], weight)
     return sum
+
+# Extract data
+# data_path = "test_sample.txt"
+# data = read(data_path)
+# vertices = get_carts(data)
+# np.save("vertices_sample.npy", vertices)
+# weights = get_weights(data)
+# np.save("weights_sample.npy", weights)
+
+vertices = np.load("vertices_sample.npy")
+weights = np.load("weights_sample.npy")
+
+radial_bins = []
+for i in range(10):
+    r1 = np.linspace(20, 160, 10 + 1)[i]
+    for j in range(i + 1, 10):
+        r2 = np.linspace(20, 160, 10 + 1)[j]
+        if r2 - r1 > 14:
+            for k in range(j + 1, 10):
+                r3 = np.linspace(20, 160, 10 + 1)[k]
+                if r3 - r2 > 14:
+                    radial_bins.append([r1, r2, r3])
+
+# Estimate 4PCF of test sample
+zeta = []
+for bins in tqdm(radial_bins, desc="Processing bins"):
+    bins_min = np.array(bins)
+    bins_max = bins_min + 14
+    zeta_bin = np.imag(estimator(1, 1, 1, vertices, bins_min, bins_max, weights))
+    zeta.append(zeta_bin)
+np.save("zeta_test_sample.npy", zeta)
+print(zeta)

@@ -43,6 +43,7 @@ def redshift_to_dist(z, type="DCMR", h=H0/100.0, Omega_m=Omega_m, n=1000):
         DTT_Gyr = (Tyr / H0) * DTT
         DCMR_Gyr = (Tyr / H0) * DCMR
         DCMR_Mpc = (c / H0) * DCMR
-        return DCMR_Mpc
+        # return DCMR_Mpc
+        return DCMR_Mpc * h
 
     return 0
