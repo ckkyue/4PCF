@@ -7,8 +7,7 @@ Omega_Lambda = 0.0
 
 def redshift_to_dist(z, type="DCMR", h=H0/100.0, Omega_m=Omega_m, n=1000):
     Omega_r = 4.165E-5 / (h**2)
-    Omega_total = Omega_m + Omega_Lambda + Omega_r
-    Omega_k = 1 - Omega_total
+    Omega_k = 1 - (Omega_m + Omega_Lambda + Omega_r)
     a = 1.0
     Tyr = 977.8
     c = 299792.458
