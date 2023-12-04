@@ -21,7 +21,7 @@ This function returns the volume of a spherical shell given two radii.
 This function is the core function for calculating the $a$ constant.
 
 ### def estimator(l1, l2, l3, vertices, bins_min, bins_max, weights)
-This function returns the 4PCF estimator for each angular momentum multipole $(l_{1}, l_{2}, l_{3})$.
+This function returns the 4PCF estimator for each angular momenta multipole $(l_{1}, l_{2}, l_{3})$.
 
 ## tetrahedra1.npy
 This file contains 1500 sample counterclockwise tetrahedra with a parity of $1$.
