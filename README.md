@@ -12,7 +12,7 @@ This function returns the longitude of a point within the range $[0, 2\pi)$, giv
 This function converts Cartesian coordinates to spherical coordinates.
 
 ### def bin_func(x, bin_min, bin_max)
-This function returns 1 if $x$ falls within a specified bin range and 0 otherwise.
+This function returns $1$ if $x$ falls within a specified bin range and $0$ otherwise.
 
 ### def shell_vol(bin_min, bin_max)
 This function returns the volume of a spherical shell given two radii.
@@ -21,13 +21,13 @@ This function returns the volume of a spherical shell given two radii.
 This function is the core function for calculating the $a$ constant.
 
 ### def estimator(l1, l2, l3, vertices, bins_min, bins_max, weights)
-This function returns the 4PCF estimator for each angular momentum multipole $(l1, l2, l3)$.
+This function returns the 4PCF estimator for each angular momentum multipole $(l_{1}, l_{2}, l_{3})$.
 
 ## tetrahedra1.npy
-This file contains 1500 sample counterclockwise tetrahedra with a parity of 1.
+This file contains 1500 sample counterclockwise tetrahedra with a parity of $1$.
 
 ## tetrahedra-1.npy
-This file contains 1500 sample clockwise tetrahedra with a parity of -1.
+This file contains 1500 sample clockwise tetrahedra with a parity of $-1$.
 
 ## test_sample.txt
 This file contains the raw data of 1000 sample galaxies from the CMASS sample of BOSS.
@@ -47,7 +47,6 @@ This function returns the Cartesian coordinates given the data.
 ## redshift_distance.py
 
 ### def redshift_to_dist(z, type="DCMR", h=H0/100.0, Omega_m=Omega_m, n=1000)
-
 This function returns the physical distance given the redshift $z$.
 
 ## vertices_sample.npy
