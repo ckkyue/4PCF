@@ -21,13 +21,13 @@ This function returns the volume of a spherical shell given two radii.
 This function is the core function for calculating the $a$ constant.
 
 ### def estimator(l1, l2, l3, vertices, bins_min, bins_max, weights)
-This function returns the 4PCF estimator, given the angular momenta multipole $(l_{1}, l_{2}, l_{3})$.
+This function returns the 4PCF estimator, given the angular momenta multipole $(`l_{1}`, `l_{2}`, `l_{3}`)$.
 
 ## random_number_generator.py
 This file contains the code for generating random points.
 
 ### min_sep_test(point, points, min_sep)
-This function checks if the point is separated by at least `min_sep` distance from all points in the `points` collection.
+This function checks if the `point` is separated by at least `min_sep` distance from all points in the `points` collection.
 
 ### generate_1d_random(num, space, min_sep)
 This function generates random 1D points with a minimum separation distance `min_sep`.
@@ -51,7 +51,7 @@ This function returns the vertices of multiple tetrahedra randomly, given the pr
 This function plots the tetrahedra.
 
 ### def zeta_tetrahedra(l1, l2, l3, tetrahedra, bins_min, bins_max)
-This function returns the 4PCF estimator of the toy model of tetrahedra, given the angular momenta multipole $(l_{1}, l_{2}, l_{3})$.
+This function returns the 4PCF estimator of the toy model of tetrahedra, given the angular momenta multipole $(`l_{1}`, `l_{2}`, `l_{3}`)$.
 
 ## tetrahedra1.npy
 This file contains 1500 sample counterclockwise tetrahedra with a parity of $1$.
