@@ -12,7 +12,7 @@ This function returns the longitude of a point within the range $[0, 2\pi)$, giv
 This function converts Cartesian coordinates `cart` to spherical coordinates.
 
 ### def bin_func(x, bin_min, bin_max)
-This function returns $1$ if $x$ falls within a specified bin range `(bin_min, bin_max)` and $0$ otherwise.
+This function returns $1$ if `x` falls within a specified bin range `(bin_min, bin_max)` and $0$ otherwise.
 
 ### def shell_vol(bin_min, bin_max)
 This function returns the volume of a spherical shell given two radii `bin_min` and `bin_max`.
@@ -75,10 +75,10 @@ This function returns the weights given the `data`.
 This function returns the Cartesian coordinates given the `data`.
 
 ## redshift_distance.py
-This file contains the code to calculate the physical distance given the redshfit $z$.
+This file contains the code to calculate the physical distance given the redshfit `z`.
 
 ### def redshift_to_dist(z, type="DCMR", h=H0/100.0, Omega_m=Omega_m, n=1000)
-This function returns the physical distance given the redshift $z$.
+This function returns the physical distance given the redshift `z`.
 
 ## vertices_sample.npy
 This file contains the Cartesian coordinates of 1000 galaxies from the CMASS sample of BOSS.
