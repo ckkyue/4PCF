@@ -1,6 +1,6 @@
 # 4PCF
-This repository contains the code for my recent project on cosmological parity violation. The main code file is "fourPCF_estimator.py", which calculates the 4PCF estimator for a collection of discrete Cartesian points.
-The "edge_correction.py" is still a work in progress and has not yet been incorporated into the calculation of the 4PCF estimator.
+This repository contains the code for my recent project on cosmological parity violation. The primary code file, "fourPCF_estimator.py," is responsible for computing the 4PCF estimator for a set of discrete Cartesian points.
+The "edge_correction.py" is currently under development and has not yet been incorporated into the calculation of the 4PCF estimator.
 
 ## fourPCF_estimator.py
 This file contains the main code for calculating the 4PCF estimator.
