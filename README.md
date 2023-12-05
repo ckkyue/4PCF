@@ -27,7 +27,7 @@ This function returns the 4PCF estimator, given the angular momenta multipole $(
 This file contains the code for generating random points.
 
 ### min_sep_test(point, points, min_sep)
-This function checks if the point is separated by at least {{min_sep}} distance from all points in the `points` collection.
+This function checks if the point is separated by at least `min_sep` distance from all points in the `points` collection.
 
 ### generate_1d_random(num, space, min_sep)
 This function generates random 1D points with a minimum separation distance `min_sep`.
