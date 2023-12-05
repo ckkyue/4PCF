@@ -85,3 +85,13 @@ This file contains the Cartesian coordinates of 1000 galaxies from the CMASS sam
 
 ## weights_sample.npy
 This file contains the weights associated with the 1000 galaxies from the CMASS sample of BOSS.
+
+# Libraries
+Ensure that you have installed the following libraries.
+```
+pip install matplotlib
+pip install numpy
+pip install scipy
+pip install sympy
+pip install tqdm
+```
