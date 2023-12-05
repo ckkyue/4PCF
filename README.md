@@ -98,8 +98,11 @@ pip install tqdm
 
 ## References
 The primary objective of this work is to verify the detection of parity-odd 4PCF by Philcox (2022) and Hou et al. (2023).
-https://journals.aps.org/prd/abstract/10.1103/PhysRevD.106.063501
-https://academic.oup.com/mnras/article/522/4/5701/7169316?login=true
+Philcox (2022): https://journals.aps.org/prd/abstract/10.1103/PhysRevD.106.063501
+
+Hou et al. (2023): https://academic.oup.com/mnras/article/522/4/5701/7169316?login=true
+
+To cite their papers, use the following BibTex:
 ```
 @article{PhysRevD.106.063501,
     title = {{Probing parity violation with the four-point correlation function of BOSS galaxies}},
