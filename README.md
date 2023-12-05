@@ -27,13 +27,13 @@ This function returns the 4PCF estimator, given the angular momenta multipole $(
 This file contains the code for generating random points.
 
 ### min_sep_test(point, points, min_sep)
-This function checks if the point is separated by at least min_sep` distance from all points in the points` collection.
+This function checks if the point is separated by at least `min_sep` distance from all points in the `points` collection.
 
 ### generate_1d_random(num, space, min_sep)
-This function generates random 1D points with a minimum separation distance
+This function generates random 1D points with a minimum separation distance `min_sep`.
 
 ### generate_3d_random(num, space, min_sep)
-This function generates random 3D points with a minimum separation distance.
+This function generates random 3D points with a minimum separation distance `min_sep`.
 
 ## tetrahedron_generator.py
 This file contains the code for generating the toy model of tetrahedra.
@@ -60,7 +60,7 @@ This file contains 1500 sample counterclockwise tetrahedra with a parity of $1$.
 This file contains 1500 sample clockwise tetrahedra with a parity of $-1$.
 
 ## test_sample.txt
-This file contains the raw data of 1000 sample galaxies from the CMASS sample of BOSS.
+This file contains the raw data of 1000 galaxies from the CMASS sample of BOSS.
 
 ## read_data.py
 This file contains functions for reading and processing data.
@@ -81,7 +81,7 @@ This file contains the code to calculate the physical distance given the redshfi
 This function returns the physical distance given the redshift $z$.
 
 ## vertices_sample.npy
-This file contains the Cartesian coordinates of 1000 sample galaxies from the CMASS sample of BOSS.
+This file contains the Cartesian coordinates of 1000 galaxies from the CMASS sample of BOSS.
 
 ## weights_sample.npy
-This file contains the weights associated with the 1000 sample galaxies from the CMASS sample of BOSS.
+This file contains the weights associated with the 1000 galaxies from the CMASS sample of BOSS.
