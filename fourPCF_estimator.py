@@ -71,7 +71,7 @@ def estimator(l1, l2, l3, vertices, bins_min, bins_max, weights):
 vertices = np.load("vertices_sample.npy")
 weights = np.load("weights_sample.npy")
 
-choice = 1 # 1 or 2
+choice = 2 # 1 or 2
 radial_bins = []
 
 if choice == 1:
@@ -97,8 +97,8 @@ elif choice == 2:
 
 # Estimate 4PCF of test sample
 l1 = 1
-l2 = 2
-l3 = 2
+l2 = 1
+l3 = 1
 zeta = []
 
 if choice == 1:
@@ -118,7 +118,10 @@ elif choice == 2:
 print(zeta)
 
 # zeta = np.load(f"zeta{l1}{l2}{l3}_test_sample{choice}.npy")
-# plt.plot(np.arange(len(zeta)), zeta, color="blue", label=r"$r_{i}\in[20, 164]$, $\Delta r = 8$")
+# if choice == 1:
+#     plt.plot(np.arange(len(zeta)), zeta, color="blue", label=r"$r_{i}\in[20, 160]$, $\Delta r = 14$")
+# elif choice == 2:
+#     plt.plot(np.arange(len(zeta)), zeta, color="blue", label=r"$r_{i}\in[20, 164]$, $\Delta r = 8$")
 # plt.xlabel("Radial Bin Index")
 # plt.ylabel(r"$Im[\hat{\zeta}_{l_{1}, l_{2}, l_{3}}(r_{1}, r_{2}, r_{3})]$")
 # plt.axhline(np.mean(zeta), linestyle="--", color="black", alpha=0.5)
