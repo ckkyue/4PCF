@@ -34,34 +34,34 @@ def bin_func(x, bin_min, bin_max):
 def shell_vol(bin_min, bin_max):
     return 4/3*np.pi*(bin_max**3 - bin_min**3)
 
-def a(l, m, primary_vert, secondary_vert, bin_min, bin_max, weight):
+def a(l, m, primary_vert, secondary_vert, bin_min, bin_max, weights):
     # Get the number of vertices
     num_vert = secondary_vert.shape[0]
     # Initialize sum variable
     sum = 0
-    v_b = 1
     # Calculate relative positions in spherical coordinates
     rel_pos_sphe = cart_to_sphe(secondary_vert - primary_vert)
     for i in range(num_vert):
         if bin_min < rel_pos_sphe[i][0] < bin_max:
+            weight = weights[i]
             sum += weight * spe.sph_harm(m, l, rel_pos_sphe[i][2], rel_pos_sphe[i][1])
-    v_b = v_b * shell_vol(bin_min, bin_max)
+    v_b = shell_vol(bin_min, bin_max)
     return sum / v_b
 
 def estimator(l1, l2, l3, vertices, bins_min, bins_max, weights):
     num_vert = vertices.shape[0]
     sum = 0
     for i in range(num_vert):
-        weight = weights[i]
+        weights = np.delete(weights, i, axis=0)
         primary = vertices[i]
         secondary = np.delete(vertices, i, axis=0)
         for m1 in range(-l1, l1+1):
             for m2 in range(-l2, l2+1):
                 for m3 in range(-l3, l3+1):
                     sum += np.float64(wigner_3j(l1, l2, l3, m1, m2, m3)) \
-                        * a(l1, m1, primary, secondary, bins_min[0], bins_max[0], weight) \
-                        * a(l2, m2, primary, secondary, bins_min[1], bins_max[1], weight) \
-                        * a(l3, m3, primary, secondary, bins_min[2], bins_max[2], weight)
+                        * a(l1, m1, primary, secondary, bins_min[0], bins_max[0], weights) \
+                        * a(l2, m2, primary, secondary, bins_min[1], bins_max[1], weights) \
+                        * a(l3, m3, primary, secondary, bins_min[2], bins_max[2], weights)
     return sum
 
 # Extract data
@@ -75,7 +75,7 @@ def estimator(l1, l2, l3, vertices, bins_min, bins_max, weights):
 vertices = np.load("vertices_sample.npy")
 weights = np.load("weights_sample.npy")
 
-choice = 2 # 1 or 2
+choice = 1 # 1 or 2
 radial_bins = []
 
 if choice == 1:
@@ -105,21 +105,21 @@ l2 = 1
 l3 = 1
 zeta = []
 
-# if choice == 1:
-#     for bins in tqdm(radial_bins, desc="Processing bins"):
-#         bins_min = np.array(bins)
-#         bins_max = bins_min + 14
-#         zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
-#         zeta.append(zeta_bin)
-#     np.save(f"zeta{l1}{l2}{l3}_test_sample1.npy", zeta)
-# elif choice == 2:
-#     for bins in tqdm(radial_bins, desc="Processing bins"):
-#         bins_min = np.array(bins)
-#         bins_max = bins_min + 8
-#         zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
-#         zeta.append(zeta_bin)
-#     np.save(f"zeta{l1}{l2}{l3}_test_sample2.npy", zeta)
-# print(zeta)
+if choice == 1:
+    for bins in tqdm(radial_bins, desc="Processing bins"):
+        bins_min = np.array(bins)
+        bins_max = bins_min + 14
+        zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
+        zeta.append(zeta_bin)
+    np.save(f"zeta{l1}{l2}{l3}_test_sample1.npy", zeta)
+elif choice == 2:
+    for bins in tqdm(radial_bins, desc="Processing bins"):
+        bins_min = np.array(bins)
+        bins_max = bins_min + 8
+        zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
+        zeta.append(zeta_bin)
+    np.save(f"zeta{l1}{l2}{l3}_test_sample2.npy", zeta)
+print(zeta)
 
 # zeta = np.load("zeta111_test_sample2.npy")
 # plt.plot(np.arange(len(zeta)), zeta, color="blue", label=r"$r_{i}\in[20, 164]$, $\Delta r = 8$")
