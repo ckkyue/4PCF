@@ -97,8 +97,8 @@ elif choice == 2:
 
 # Estimate 4PCF of test sample
 l1 = 1
-l2 = 1
-l3 = 1
+l2 = 2
+l3 = 2
 zeta = []
 
 if choice == 1:
@@ -117,23 +117,12 @@ elif choice == 2:
     np.save(f"zeta{l1}{l2}{l3}_test_sample2.npy", zeta)
 print(zeta)
 
-# zeta = np.load("zeta111_test_sample2.npy")
+# zeta = np.load(f"zeta{l1}{l2}{l3}_test_sample{choice}.npy")
 # plt.plot(np.arange(len(zeta)), zeta, color="blue", label=r"$r_{i}\in[20, 164]$, $\Delta r = 8$")
 # plt.xlabel("Radial Bin Index")
-# plt.ylabel(r"$Im[\zeta_{l_{1}, l_{2}, l_{3}}(r_{1}, r_{2}, r_{3})]$")
+# plt.ylabel(r"$Im[\hat{\zeta}_{l_{1}, l_{2}, l_{3}}(r_{1}, r_{2}, r_{3})]$")
 # plt.axhline(np.mean(zeta), linestyle="--", color="black", alpha=0.5)
-# plt.title(r"$l_{1}=1$, $l_{2}=1$, $l_{3}=1$")
+# plt.title(fr"$l_{1}={l1}$, $l_{2}={l2}$, $l_{3}={l3}$")
 # plt.legend(loc="best")
-# plt.savefig("Figure/zeta111_test_sample2.png")
-# plt.show()
-
-# zeta = np.load("zeta111_test_sample2.npy")
-# rzeta = [r1 * r2 * r3 * z for ((r1, r2, r3), z) in zip(radial_bins, zeta)]
-# plt.plot(np.arange(len(rzeta)), rzeta, color="blue", label=r"$r_{i}\in[20, 164]$, $\Delta r = 8$")
-# plt.xlabel("Radial Bin Index")
-# plt.ylabel(r"$r_{1}r_{2}r_{3}Im[\zeta_{l_{1}, l_{2}, l_{3}}(r_{1}, r_{2}, r_{3})]$")
-# plt.axhline(np.mean(rzeta), linestyle="--", color="black", alpha=0.5)
-# plt.title(r"$l_{1}=1$, $l_{2}=1$, $l_{3}=1$")
-# plt.legend(loc="best")
-# plt.savefig("Figure/rzeta111_test_sample2.png")
+# plt.savefig(f"Figure/zeta{l1}{l2}{l3}_test_sample{choice}.png")
 # plt.show()
