@@ -26,10 +26,6 @@ def cart_to_sphe(cart):
     spherical_coords[np.isnan(spherical_coords)] = 0
     return spherical_coords
 
-# Bin function
-def bin_func(x, bin_min, bin_max):
-    return int(bin_min < x < bin_max)
-
 # Volume of spherical shell
 def shell_vol(bin_min, bin_max):
     return 4/3*np.pi*(bin_max**3 - bin_min**3)
@@ -52,16 +48,16 @@ def estimator(l1, l2, l3, vertices, bins_min, bins_max, weights):
     num_vert = vertices.shape[0]
     sum = 0
     for i in range(num_vert):
-        weights = np.delete(weights, i, axis=0)
+        weights_new = np.delete(weights, i, axis=0)
         primary = vertices[i]
         secondary = np.delete(vertices, i, axis=0)
         for m1 in range(-l1, l1+1):
             for m2 in range(-l2, l2+1):
                 for m3 in range(-l3, l3+1):
                     sum += np.float64(wigner_3j(l1, l2, l3, m1, m2, m3)) \
-                        * a(l1, m1, primary, secondary, bins_min[0], bins_max[0], weights) \
-                        * a(l2, m2, primary, secondary, bins_min[1], bins_max[1], weights) \
-                        * a(l3, m3, primary, secondary, bins_min[2], bins_max[2], weights)
+                        * a(l1, m1, primary, secondary, bins_min[0], bins_max[0], weights_new) \
+                        * a(l2, m2, primary, secondary, bins_min[1], bins_max[1], weights_new) \
+                        * a(l3, m3, primary, secondary, bins_min[2], bins_max[2], weights_new)
     return sum
 
 # Extract data
