@@ -11,9 +11,6 @@ This function returns the longitude of a point within the range $[0, 2\pi)$, giv
 ### def cart_to_sphe(cart)
 This function converts Cartesian coordinates `cart` to spherical coordinates.
 
-### def bin_func(x, bin_min, bin_max)
-This function returns $1$ if `x` falls within a specified bin range `(bin_min, bin_max)` and $0$ otherwise.
-
 ### def shell_vol(bin_min, bin_max)
 This function returns the volume of a spherical shell given two radii `bin_min` and `bin_max`.
 
