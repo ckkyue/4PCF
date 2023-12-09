@@ -101,21 +101,21 @@ l2 = 1
 l3 = 1
 zeta = []
 
-if choice == 1:
-    for bins in tqdm(radial_bins, desc="Processing bins"):
-        bins_min = np.array(bins)
-        bins_max = bins_min + 14
-        zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
-        zeta.append(zeta_bin)
-    np.save(f"zeta{l1}{l2}{l3}_test_sample1.npy", zeta)
-elif choice == 2:
-    for bins in tqdm(radial_bins, desc="Processing bins"):
-        bins_min = np.array(bins)
-        bins_max = bins_min + 8
-        zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
-        zeta.append(zeta_bin)
-    np.save(f"zeta{l1}{l2}{l3}_test_sample2.npy", zeta)
-print(zeta)
+# if choice == 1:
+#     for bins in tqdm(radial_bins, desc="Processing bins"):
+#         bins_min = np.array(bins)
+#         bins_max = bins_min + 14
+#         zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
+#         zeta.append(zeta_bin)
+#     np.save(f"zeta{l1}{l2}{l3}_test_sample1.npy", zeta)
+# elif choice == 2:
+#     for bins in tqdm(radial_bins, desc="Processing bins"):
+#         bins_min = np.array(bins)
+#         bins_max = bins_min + 8
+#         zeta_bin = np.imag(estimator(l1, l2, l3, vertices, bins_min, bins_max, weights))
+#         zeta.append(zeta_bin)
+#     np.save(f"zeta{l1}{l2}{l3}_test_sample2.npy", zeta)
+# print(zeta)
 
 # zeta = np.load(f"zeta{l1}{l2}{l3}_test_sample{choice}.npy")
 # if choice == 1:
@@ -128,4 +128,18 @@ print(zeta)
 # plt.title(fr"$l_{1}={l1}$, $l_{2}={l2}$, $l_{3}={l3}$")
 # plt.legend(loc="best")
 # plt.savefig(f"Figure/zeta{l1}{l2}{l3}_test_sample{choice}.png")
+# plt.show()
+
+# zeta = np.load(f"zeta{l1}{l2}{l3}_test_sample{choice}.npy")
+# rzeta = [r1 * r2 * r3 * z for ((r1, r2, r3), z) in zip(radial_bins, zeta)]
+# if choice == 1:
+#     plt.plot(np.arange(len(rzeta)), rzeta, color="blue", label=r"$r_{i}\in[20, 160]$, $\Delta r = 14$")
+# elif choice == 2:
+#     plt.plot(np.arange(len(rzeta)), rzeta, color="blue", label=r"$r_{i}\in[20, 164]$, $\Delta r = 8$")
+# plt.xlabel("Radial Bin Index")
+# plt.ylabel(r"$r_{1}r_{2}r_{3}Im[\hat{\zeta}_{l_{1}, l_{2}, l_{3}}(r_{1}, r_{2}, r_{3})]$")
+# plt.axhline(np.mean(rzeta), linestyle="--", color="black", alpha=0.5)
+# plt.title(fr"$l_{1}={l1}$, $l_{2}={l2}$, $l_{3}={l3}$")
+# plt.legend(loc="best")
+# plt.savefig(f"Figure/rzeta{l1}{l2}{l3}_test_sample{choice}.png")
 # plt.show()
