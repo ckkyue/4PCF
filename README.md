@@ -63,7 +63,7 @@ This file contains the raw data of 1000 galaxies from the CMASS sample of BOSS.
 This file contains functions for reading and processing data.
 
 ### def read(data_path)
-This function returns the data given the path to the raw data.
+This function returns the data given the path `data_path` to the raw data.
 
 ### def get_weights(data)
 This function returns the weights given the `data`.
