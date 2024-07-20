@@ -131,3 +131,5 @@ To cite their papers, use the following BibTex:
     journal = {Monthly Notices of the Royal Astronomical Society}
 }
 ```
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
