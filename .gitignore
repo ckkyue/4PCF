@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Figures
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.pdf
