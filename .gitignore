@@ -1,7 +1,91 @@
-# macOS
+# ========================================
+# OS Files
+# ========================================
 .DS_Store
+**/.DS_Store
+Thumbs.db
+ehthumbs.db
 
-# Figures
+# ========================================
+# Python
+# ========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# ========================================
+# Jupyter Notebook
+# ========================================
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# ========================================
+# IDEs & Editors
+# ========================================
+.vscode/
+*.code-workspace
+
+# ========================================
+# Dev Environments
+# ========================================
+.codespaces/
+.devcontainer/
+.github/codespaces/
+
+# ========================================
+# ML/Data Files (Large)
+# ========================================
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.onnx
+*.pt
+*.pth
+*.ckpt
+*.joblib
+*.pkl
+*.pickle
+
+# ========================================
+# Logs & Temporary Files
+# ========================================
+*.log
+logs/
+*.tmp
+*.temp
+
+# ========================================
+# Output Files (Media)
+# ========================================
 *.png
 *.jpg
 *.jpeg
